@@ -1,4 +1,76 @@
 .component {
   position: absolute;
   margin: 20px;
+  font-family: sans-serif;
+
+  & > .header {
+    height: 50px;
+    background: pink;
+
+    @media (--viewport-md) {
+      height: 100px;
+    }
+  }
+}
+
+.header > * {
+  height: 100%;
+}
+
+[data-interactive='true'] .header {
+  &.indeterminate {
+    visibility: hidden;
+  }
+}
+
+.componentHeaderDesktop {
+  display: flex;
+  align-items: center;
+
+  & > .menuDesktop {
+    width: 100%;
+  }
+}
+
+.menuDesktop {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 50px;
+  padding: 0 50px;
+}
+
+.componentHeaderMobile {
+  position: relative;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+
+  & > .trigger {
+    margin-left: auto;
+    margin-right: 20px;
+  }
+
+  & > .menuMobile {
+    position: absolute;
+    z-index: 1;
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin: 0;
+  }
+}
+
+.trigger {
+  display: block;
+}
+
+.menuMobile {
+  display: none;
+  background: hotpink;
+  padding: 20px 50px;
+
+  &.isExpanded {
+    display: block;
+  }
 }
