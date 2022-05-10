@@ -21,6 +21,13 @@ module.exports = {
 }
 ```
 
+### Supporting older browsers
+To support older browsers you will need to add some polyfills. When polyfilling for IE11 using polyfill.io, you need:
+
+- `matchMedia`
+- `MediaQueryList.prototype.addEventListener`
+- `MediaQueryList.prototype.removeEventListener`
+
 ## Usage
 
 ```jsx

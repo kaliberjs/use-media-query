@@ -6,13 +6,9 @@ export function useMediaQuery(query) {
       const mql = window.matchMedia(query)
       setMatches(mql.matches)
 
-      mql.addEventListener
-        ? mql.addEventListener('change', handleChange)
-        : mql.addListener(handleChange)
+      mql.addEventListener('change', handleChange)
 
-      return () => mql.removeEventListener
-        ? mql.removeEventListener('change', handleChange)
-        : mql.removeListener(handleChange)
+      return () => mql.removeEventListener('change', handleChange)
 
       function handleChange() {
         setMatches(mql.matches)
