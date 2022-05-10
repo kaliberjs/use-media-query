@@ -49,7 +49,7 @@ Please do refer to the example in the `/example` folder to see how you can avoid
 `useMediaQuery` only returns a non-null value after the first render, because the first render there's no information about the media query available yet. If you need a default value, you can add one using the __nullish coalescing operator__:
 
 ```js
-const showDesktopNavigation = useMediaQuery(isViewportMd) ?? true
+const showDesktopNavigation = useMediaQuery(viewportMd) ?? true
 ```
 
 ### Indeterminate
