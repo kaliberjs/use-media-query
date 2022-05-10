@@ -1,0 +1,5 @@
+:export {
+  mediaQueryViewportMd: screen and (min-width: 48em);
+}
+
+@custom-media --viewport-md screen and (min-width: 48em); /* 768px */

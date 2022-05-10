@@ -1,46 +1,86 @@
-# BEFORE YOU PUBLISH
-- Read [Libraries van Kaliber](https://docs.google.com/document/d/1FrJi-xWtKkbocyMVK5A5_hupjl5E4gD4rDvATDlxWyc/edit#heading=h.bb3md3gyf493).
-- Make sure your example works.
-- Make sure your package.json is correct. Have you change the library title?
-- Update the bin/postInstall script. It should refer to your library.
-- Update the `<title>` tag in `index.html.js`.
-- Remove 'BEFORE YOU PUBLISH' and 'PUBLISHING' from this document.
-
-# PUBLISHING
-- Make sure you are added to the kaliber organization on NPM
-- run `yarn publish`
-- Enter a correct version, we adhere to semantic versioning (semver)
-- run `git push`
-- run `git push --tags`
-- Send everybody an email to introduce them to your library!
-
-# Library title
-Short description.
+# @kaliber/use-media-query
+A hook that makes it easy to use a media query in React.
 
 ## Motivation
-Optionally add a bit of text describing why this library exists.
+Sometimes it's useful to render a different version of a component on different media. For instance: a navigation component can have wildly different implementations for mobile and desktop. This hook gives you the power to use media queries to trigger this behavior.
 
 ## Installation
 
 ```
-yarn add @kaliber/library
+yarn add @kaliber/use-media-query
 ```
 
-## Usage
-Short example. If your library has multiple ways to use it, show the most used one and refer to `/example` for further examples.
+Add the library to your `compileWithBabel` array:
 
-```jsx
-import { hello } from 'library'
-
-function Component() {
-  return <div>{hello()}</div>
+__`config/default.js`__
+```js
+module.exports = {
+  kaliber: {
+    compileWithBabel: [/@kaliber\/use-media-query/]
+  }
 }
 ```
 
-# Reference
-Optionally add a reference, if your library needs it.
+### Supporting older browsers
+To support older browsers you will need to add some polyfills. When polyfilling for IE11 using polyfill.io, you need:
 
-![](https://media.giphy.com/media/find-a-good-gif/giphy.gif)
+- `matchMedia`
+- `MediaQueryList.prototype.addEventListener`
+- `MediaQueryList.prototype.removeEventListener`
+
+## Usage
+
+```jsx
+import { useMediaQuery } from '@kaliber/use-media-query'
+
+function Component() {
+  const showDesktopNavigation = useMediaQuery(mediaQuery)
+
+  return (
+    <div className={styles.component}>
+      <header className={styles.header}>
+        {showDesktopNavigation
+          ? <HeaderDesktop items={menuItems} />
+          : <HeaderMobile items={menuItems} />
+        }
+      </header>
+    </div>
+  )
+}
+```
+
+Please do refer to the example in the `/example` folder to see how you can avoid CLS and displaying the wrong menu for a frame.
+
+### Default values
+
+`useMediaQuery` only returns a non-null value after the first render, because the first render there's no information about the media query available yet. If you need a default value, you can add one using the __nullish coalescing operator__:
+
+```js
+const showDesktopNavigation = useMediaQuery(mediaQuery) ?? true
+```
+
+### Indeterminate
+
+If you want to display a waiting state while you wait for `useMediaQuery` to update, you can explicitly test against `null`:
+
+```js
+function Component() {
+  const isViewportMd = useMediaQuery(mediaQuery)
+  const indeterminate = isViewportMd === null
+
+  return (
+    <div className={styles.component}>
+      <header className={cx(styles.header, indeterminate && styles.indeterminate)}>
+        {/* ... */}
+      </header>
+    </div>
+  )
+}
+```
+
+---
+
+![](https://media.giphy.com/media/3yjYqt6EosROH9ZwFX/giphy.gif)
 
 ## Disclaimer
 This library is intended for internal use, we provide __no__ support, use at your own risk. It does not import React, but expects it to be provided, which [@kaliber/build](https://kaliberjs.github.io/build/) can handle for you.

@@ -1,5 +1,5 @@
 module.exports = {
   kaliber: {
-    compileWithBabel: [/@kaliber\//]
+    compileWithBabel: [/@kaliber\/use-media-query/]
   }
 }

@@ -1,1 +1,1 @@
-export { hello } from './src/hello'
+export { useMediaQuery } from './src/useMediaQuery'
