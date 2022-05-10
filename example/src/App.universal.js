@@ -1,5 +1,5 @@
 import { useMediaQuery } from '@kaliber/use-media-query'
-import { viewportMd } from '/cssGlobal/media.css'
+import { mediaQueryViewportMd } from '/cssGlobal/media.css'
 import styles from './App.css'
 
 const menuItems = [
@@ -10,7 +10,7 @@ const menuItems = [
 ]
 
 export default function App() {
-  const isViewportMd = useMediaQuery(viewportMd)
+  const isViewportMd = useMediaQuery(mediaQueryViewportMd)
   const showDesktopNavigation = isViewportMd ?? true
 
   return (
