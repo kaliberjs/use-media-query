@@ -34,7 +34,7 @@ To support older browsers you will need to add some polyfills. When polyfilling 
 import { useMediaQuery } from '@kaliber/use-media-query'
 
 function Component() {
-  const showDesktopNavigation = useMediaQuery(mediaQuery)
+  const showDesktopNavigation = useMediaQuery('screen and (min-width: 48em)')
 
   return (
     <div className={styles.component}>
@@ -56,7 +56,7 @@ Please do refer to the example in the `/example` folder to see how you can avoid
 `useMediaQuery` only returns a non-null value after the first render, because the first render there's no information about the media query available yet. If you need a default value, you can add one using the __nullish coalescing operator__:
 
 ```js
-const showDesktopNavigation = useMediaQuery(mediaQuery) ?? true
+const showDesktopNavigation = useMediaQuery('screen and (min-width: 48em)') ?? true
 ```
 
 ### Indeterminate
@@ -65,7 +65,7 @@ If you want to display a waiting state while you wait for `useMediaQuery` to upd
 
 ```js
 function Component() {
-  const isViewportMd = useMediaQuery(mediaQuery)
+  const isViewportMd = useMediaQuery('screen and (min-width: 48em)')
   const indeterminate = isViewportMd === null
 
   return (
