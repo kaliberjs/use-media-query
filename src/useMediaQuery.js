@@ -1,9 +1,17 @@
+/**
+ * This version of useMediaQuery caches the different `matchMedia` instances.
+ * This allows you to preload the matches and prevent layout shifts.
+ */
+
+const cache = {}
+
 export function useMediaQuery(query) {
-  const [matches, setMatches] = React.useState(null)
+  const [matches, setMatches] = React.useState(() => cache[query]?.matches || null)
 
   React.useEffect(
     () => {
-      const mql = window.matchMedia(query)
+      const mql = cache[query] || (cache[query] = window.matchMedia(query))
+
       setMatches(mql.matches)
 
       mql.addEventListener('change', handleChange)
