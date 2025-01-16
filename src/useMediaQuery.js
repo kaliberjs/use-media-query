@@ -6,7 +6,7 @@
 const cache = {}
 
 export function useMediaQuery(query) {
-  const [matches, setMatches] = React.useState(() => cache[query]?.matches || null)
+  const [matches, setMatches] = React.useState(null)
 
   React.useEffect(
     () => {
